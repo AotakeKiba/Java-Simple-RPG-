@@ -82,30 +82,24 @@ public class Job {
 				this.setStr(5 + (level * 2 * 1.5));
 				this.setAgi(5 + (level * 2));
 				this.setIntel(5 + (level * 2));
-				this.setMana(100 + (this.getIntel() * 20));
-				this.setAttack(10 + (this.getStr()));
-				this.setArmor(1 + (this.getAgi() * 0.1));
-				this.setHp(this.getStr() * 50);
 				break;
 			case "INT":
 				this.setStr(5 + (level * 2));
 				this.setAgi(5 + (level * 2));
 				this.setIntel(5 + (level * 2 * 1.5));
-				this.setMana(100 + (this.getIntel() * 20));
-				this.setAttack(10 + (this.getIntel()));
-				this.setArmor(1 + (this.getAgi() * 0.1));
-				this.setHp(this.getStr() * 50);
 				break;
 			case "AGI":
 				this.setStr(5 + (level * 2));
 				this.setAgi(5 + (level * 2 * 1.5));
 				this.setIntel(5 + (level * 2));
-				this.setMana(100 + (this.getIntel() * 20));
-				this.setAttack(10 + (this.getAgi()));
-				this.setArmor(1 + (this.getAgi() * 0.1));
-				this.setHp(this.getStr() * 50);
 				break;
 		}
+		
+		this.setMana(100 + (this.getIntel() * 20));
+		this.setAttack(10 + (this.getStr()));
+		this.setArmor(1 + (this.getAgi() * 0.1));
+		this.setHp(this.getStr() * 50);
+		
 	}
 	
 }

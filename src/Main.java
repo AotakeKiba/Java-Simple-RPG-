@@ -1,13 +1,18 @@
 import java.util.*;
 public class Main {
-	public boolean gameStart = true;
-	public Job playerClass;
-	public int currentEXPBar = 0;
-	public int level = 1;
-	public int currentFloor = 1;
+	private boolean gameStart = true;
+	private Job playerClass;
+	private int currentEXPBar = 0;
+	private int level = 1;
+	private int currentFloor = 1;
 	
 	public Main() {
+		clearscreen();
+		ClassSelection();
 		
+		while(gameStart) {
+			action();
+		}
 	}
 	
 	public void ViewProfile() {
@@ -24,9 +29,10 @@ public class Main {
 	
 	public Job ClassSelection() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("1. Warrior");
-		System.out.println("2. Priest");
-		System.out.println("3. Archer");
+		String[] job = {"Warrior","Priest", "Archer"};
+		for(int i = 0; i < job.length; i++) {
+			System.out.println(i+1+". "+job[i]);
+		}
 		System.out.print("Select your class: ");
 		int classChosen = sc.nextInt();
 		
@@ -60,7 +66,7 @@ public class Main {
 	
 	public void action() {
 		Scanner sc = new Scanner(System.in);
-		Main main = new Main();
+		
 		System.out.println("You have battled a total of: " + currentEXPBar + " times");
 		System.out.println("You are at Floor " + currentFloor);
 		System.out.println("1. Grind EXP");
@@ -73,30 +79,30 @@ public class Main {
 		case 1: {
 			currentEXPBar++;
 			level = (int) (1 + Math.floor(currentEXPBar / 2));
-			main.clearscreen();
+			clearscreen();
 			System.out.println("You killed a monster! You gained an amount of EXP");
-			
 			break;
 		}
 		case 2: {
-			if(playerClass.getHp() - (currentFloor*1000) > 0) {
+			if(playerClass.getHp() - (currentFloor*1000) >= 0) {
 				currentFloor++;
-				main.clearscreen();
+				clearscreen();
 				System.out.println("You advanced to the next floor");
 			}else {
 				currentEXPBar = currentEXPBar/2;
 				level = (int) (1 + Math.floor(currentEXPBar / 2));
-				main.clearscreen();
+				clearscreen();
 				System.out.println("You have died and your battle progress is halved...");
 			}
 			break;
 		}
 		case 3: {
-			main.clearscreen();
+			clearscreen();
+			
 			ViewProfile();
 			sc.nextLine();
 			sc.nextLine();
-			main.clearscreen();
+			clearscreen();
 
 			break;
 		}
@@ -106,7 +112,7 @@ public class Main {
 			break;
 		}
 		default:
-			main.clearscreen();
+			clearscreen();
 			System.out.println("Wrong Action");
 		}
 	}
@@ -117,15 +123,6 @@ public class Main {
 
 	public static void main(String[] args) {
 		Main main = new Main();
-		main.clearscreen();
-		main.ClassSelection();
-
-		while(main.gameStart) {
-			
-			main.action();
-			
-		}
-		
 
 	}
 
