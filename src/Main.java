@@ -29,38 +29,45 @@ public class Main {
 	
 	public Job ClassSelection() {
 		Scanner sc = new Scanner(System.in);
-		String[] job = {"Warrior","Priest", "Archer"};
+		String[][] job = {
+				{"Warrior","STR"},
+				{"Priest","INT"},
+				{"Archer","AGI"}
+		};
 		for(int i = 0; i < job.length; i++) {
-			System.out.println(i+1+". "+job[i]);
+			System.out.println(i+1+". "+job[i][0]);
 		}
 		System.out.print("Select your class: ");
 		int classChosen = sc.nextInt();
 		
 		playerClass = new Job();
-		
+		playerClass.setName(job[classChosen-1][0]);
+		playerClass.setHeroType(job[classChosen-1][1]);
+		playerClass.setStat(level);
+		/*
 		switch (classChosen) {
 		case 1: {
-			playerClass.setName("Warrior");
-			playerClass.setHeroType("STR");
+			playerClass.setName(job[classChosen-1][classChosen-1]);
+			playerClass.setHeroType(job[classChosen-1][classChosen]);
 			playerClass.setStat(level);
 			break;
 		}
 		case 2: {
-			playerClass.setName("Priest");
-			playerClass.setHeroType("INT");
+			playerClass.setName(job[classChosen-1][classChosen-1]);
+			playerClass.setHeroType(job[classChosen-1][classChosen]);
 			playerClass.setStat(level);
 			break;
 		}
 		case 3: {
-			playerClass.setName("Archer");
-			playerClass.setHeroType("AGI");
+			playerClass.setName(job[classChosen-1][classChosen-1]);
+			playerClass.setHeroType(job[classChosen-1][classChosen]);
 			playerClass.setStat(level);
 			break;
 		}
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + classChosen);
 		}
-		
+		*/
 		return playerClass;
 	}
 	
