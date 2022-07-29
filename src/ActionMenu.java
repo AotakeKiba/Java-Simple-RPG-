@@ -37,12 +37,7 @@ public class ActionMenu extends JFrame {
 	
 	public void setPlayer(Job PlayerClass) {
 		PlayerJob = PlayerClass;
-		System.out.println("Your HP: " + PlayerJob.getHp());
 	}	
-	
-	public void my_updates(Job PlayerClass) {
-		PlayerJob = PlayerClass;
-	}
 	
 	public ActionMenu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
