@@ -1,0 +1,4 @@
+Warrior
+STR
+2
+69

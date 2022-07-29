@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 public class Main {
 	private boolean gameStart = true;
@@ -6,12 +7,37 @@ public class Main {
 	private int level = 1;
 	private int currentFloor = 1;
 	
-	public Main() {
-		clearscreen();
-		ClassSelection();
+	public Main() throws IOException {
+		
+		mainMenu();
 		
 		while(gameStart) {
 			action();
+		}
+	}
+	public void mainMenu() throws IOException {
+		Scanner sc = new Scanner(System.in);
+		String[] menu = {"New Game", "Load Game", "Exit"};
+		for(int i = 0; i < menu.length;i++) {
+			System.out.println(i+1+". "+menu[i]);
+		}
+		System.out.print("What would you like to do?");
+		int menuChosen = sc.nextInt();
+		switch(menuChosen) {
+		case 1:
+			clearscreen();
+			ClassSelection();
+			break;
+		case 2:
+			clearscreen();
+			Load load = new Load();
+			ArrayList<String> dataList = load.LoadGame("Save01");
+			playerClass = new Job();
+			playerClass.setName(dataList.get(0));
+			playerClass.setHeroType(dataList.get(1));
+			currentFloor = Integer.parseInt(dataList.get(2));
+			currentEXPBar = Integer.parseInt(dataList.get(3));
+			playerClass.setStat(currentEXPBar/2);
 		}
 	}
 	
@@ -34,53 +60,47 @@ public class Main {
 				{"Priest","INT"},
 				{"Archer","AGI"}
 		};
-		for(int i = 0; i < job.length; i++) {
-			System.out.println(i+1+". "+job[i][0]);
+		int classChosen = 4;
+		while(classChosen>3 || classChosen < 1) {
+			for(int i = 0; i < job.length; i++) {
+				System.out.println(i+1+". "+job[i][0]);
+			}
+			System.out.print("Select your class: ");
+			classChosen = sc.nextInt();
 		}
-		System.out.print("Select your class: ");
-		int classChosen = sc.nextInt();
+		
 		
 		playerClass = new Job();
 		playerClass.setName(job[classChosen-1][0]);
 		playerClass.setHeroType(job[classChosen-1][1]);
 		playerClass.setStat(level);
-		/*
-		switch (classChosen) {
-		case 1: {
-			playerClass.setName(job[classChosen-1][classChosen-1]);
-			playerClass.setHeroType(job[classChosen-1][classChosen]);
-			playerClass.setStat(level);
-			break;
-		}
-		case 2: {
-			playerClass.setName(job[classChosen-1][classChosen-1]);
-			playerClass.setHeroType(job[classChosen-1][classChosen]);
-			playerClass.setStat(level);
-			break;
-		}
-		case 3: {
-			playerClass.setName(job[classChosen-1][classChosen-1]);
-			playerClass.setHeroType(job[classChosen-1][classChosen]);
-			playerClass.setStat(level);
-			break;
-		}
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + classChosen);
-		}
-		*/
+		
 		return playerClass;
 	}
 	
-	public void action() {
-		Scanner sc = new Scanner(System.in);
+	public void menu() {
+		String[] menu = {"Grind EXP", "Fight Floor Boss","View Profile","Save", "Load","Quit"};
 		
 		System.out.println("You have battled a total of: " + currentEXPBar + " times");
 		System.out.println("You are at Floor " + currentFloor);
-		System.out.println("1. Grind EXP");
-		System.out.println("2. Fight Floor Boss");
-		System.out.println("3. View Profile");
-		System.out.println("99. Quit");
+		for(int i = 0;i<menu.length;i++) {
+			
+			if(menu.length-i==1) {
+				System.out.println("99. "+menu[i]);
+			}else {
+				System.out.println(i+1+". "+menu[i]);
+			}
+			
+		}
 		System.out.print("What would you like to do?");
+	}
+	
+	
+	public void action() throws IOException {
+		Scanner sc = new Scanner(System.in);
+	
+		menu();
+		
 		int action = sc.nextInt();
 		switch (action) {
 		case 1: {
@@ -113,6 +133,20 @@ public class Main {
 
 			break;
 		}
+		case 4: {
+			Save save = new Save("Save01", playerClass, currentFloor, currentEXPBar);
+			break;
+		}
+		case 5: {
+			Load load = new Load();
+			ArrayList<String> dataList = load.LoadGame("Save01");
+			playerClass.setName(dataList.get(0));
+			playerClass.setHeroType(dataList.get(1));
+			currentFloor = Integer.parseInt(dataList.get(2));
+			currentEXPBar = Integer.parseInt(dataList.get(3));
+			playerClass.setStat(currentEXPBar/2);
+			break;
+		}
 		case 99: {
 			gameStart=false;
 			
@@ -128,7 +162,7 @@ public class Main {
 		for (int i = 0; i < 50; ++i) System.out.println();
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Main main = new Main();
 
 	}
