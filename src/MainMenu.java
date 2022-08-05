@@ -120,7 +120,7 @@ public class MainMenu extends JFrame {
 //		}
 		private void ChangePanel() {
 			ActionMenu action = new ActionMenu();
-			action.setPlayer(playerClass);
+			action.setPlayer(playerClass, level);
 			action.setVisible(true);
 		}
 		
