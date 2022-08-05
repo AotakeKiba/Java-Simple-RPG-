@@ -57,6 +57,13 @@ public class ActionMenu extends JFrame {
 	public void setText() {
 		lblLine1.setText("You have battled a total of: " + currentEXPBar + " times");
 		lblLine2.setText("You are at Floor " + currentFloor);
+		lblHP.setText("");
+		lblName.setText("");
+		lblArmor.setText("");
+		lblAtk.setText("");
+		lblStr.setText("");
+		lblAgi.setText("");
+		lblint.setText("");
 	}
 	
 	public ActionMenu() {
